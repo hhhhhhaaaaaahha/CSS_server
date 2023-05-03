@@ -10,11 +10,5 @@ class RouletteSyetem:
         self.member_restaurant[token].clear()
         print(self.member_restaurant[token])
 
-    def getMemberRestaurant(self, token: str, index: int):
-        return self.member_restaurant[token][index]
-
     def getMemberRestaurantList(self, token: str):
         return self.member_restaurant[token]
-
-    def getMemberRestaurantCount(self, token: str) -> int:
-        return len(self.member_restaurant[token])

@@ -5,7 +5,6 @@ from roulette_system import RouletteSyetem
 from school_time_table_system import SchoolTimeTableSystem
 
 from flask import Flask, jsonify, request
-from flask_restful import Resource, Api
 
 
 class MainSystem:
@@ -35,33 +34,77 @@ def roulette2():
     return "success"
 
 
-@server.route("/get_restraunt", methods=["POST"])
+@server.route("/get_restraunt_list", methods=["POST"])
 def roulette3():
     return jsonify(
         {
-            "name": system.roulette_system.getMemberRestaurant(
-                request.headers["member_id"], int(request.values["index"])
-            )
-        }
-    )
-
-
-@server.route("/get_restraunt_count", methods=["POST"])
-def roulette4():
-    return jsonify(
-        {
-            "count": system.roulette_system.getMemberRestaurantCount(
+            "list": system.roulette_system.getMemberRestaurantList(
                 request.headers["member_id"]
             )
         }
     )
 
 
-@server.route("/get_restraunt_list", methods=["POST"])
-def roulette5():
+@server.route("/cleaning_get_members", methods=["POST"])
+def cleaning1():
     return jsonify(
         {
-            "list": system.roulette_system.getMemberRestaurantList(
+            "list": system.cleaning_time_table_system.getHatarakuMembers(
+                request.headers["member_id"]
+            )
+        }
+    )
+
+
+@server.route("/cleaning_get_startD", methods=["POST"])
+def cleaning2():
+    return jsonify(
+        {
+            "startD": system.cleaning_time_table_system.getSemesterStartD(
+                request.headers["member_id"]
+            )
+        }
+    )
+
+
+@server.route("/cleaning_get_endD", methods=["POST"])
+def cleaning3():
+    return jsonify(
+        {
+            "endD": system.cleaning_time_table_system.getSemesterEndD(
+                request.headers["member_id"]
+            )
+        }
+    )
+
+
+@server.route("/meeting_get_time", methods=["POST"])
+def meeting1():
+    return jsonify(
+        {
+            "time": system.meeting_time_table_system.getmeeting_time(
+                request.headers["member_id"]
+            )
+        }
+    )
+
+
+@server.route("/course_get_time", methods=["POST"])
+def course1():
+    return jsonify(
+        {
+            "time": system.school_time_table_system.getMemberClassTimeSchedual(
+                request.headers["member_id"], request.values["name"]
+            )
+        }
+    )
+
+
+@server.route("/course_get_members", methods=["POST"])
+def course2():
+    return jsonify(
+        {
+            "members": system.school_time_table_system.getAllMembers(
                 request.headers["member_id"]
             )
         }
