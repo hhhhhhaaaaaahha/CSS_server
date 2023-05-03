@@ -21,8 +21,44 @@ system = MainSystem()
 server = Flask(__name__)
 
 
-@server.route("/get_restraunt_list")
-def Test():
+@server.route("/add_restraunt", methods=["POST"])
+def roulette1():
+    system.roulette_system.addToMemberRestaurantList(
+        request.headers["member_id"], request.values["name"]
+    )
+    return "success"
+
+
+@server.route("/clear_restraunt", methods=["POST"])
+def roulette2():
+    system.roulette_system.clearMemberRestaurantList(request.headers["member_id"])
+    return "success"
+
+
+@server.route("/get_restraunt", methods=["POST"])
+def roulette3():
+    return jsonify(
+        {
+            "name": system.roulette_system.getMemberRestaurant(
+                request.headers["member_id"], int(request.values["index"])
+            )
+        }
+    )
+
+
+@server.route("/get_restraunt_count", methods=["POST"])
+def roulette4():
+    return jsonify(
+        {
+            "count": system.roulette_system.getMemberRestaurantCount(
+                request.headers["member_id"]
+            )
+        }
+    )
+
+
+@server.route("/get_restraunt_list", methods=["POST"])
+def roulette5():
     return jsonify(
         {
             "list": system.roulette_system.getMemberRestaurantList(
@@ -30,14 +66,6 @@ def Test():
             )
         }
     )
-
-
-@server.route("/add_restraunt", methods=["POST"])
-def Test2():
-    system.roulette_system.addToMemberRestaurantList(
-        request.headers["member_id"], request.values["name"]
-    )
-    return "success"
 
 
 if __name__ == "__main__":
