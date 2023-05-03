@@ -43,10 +43,8 @@ class CleaningTimeTableSystem:
             self.semesterStartD = monthDay
         else:
             return "Permission denied."
+        if len(monthDay)>2:
+            return "invalid month and day"
         self.semesterStartD = monthDay
-
-    def setsemesterEndD(self, token: str, monthDay):
-        if token in self.token_list:
-            self.semesterEndD = monthDay
-        else:
-            return "Permission denied."
+    def setsemesterEndD(self, monthDay):
+        self.semesterEndD = monthDay
